@@ -70,3 +70,62 @@ body {
     */
     font-size: 45px;
 }
+
+#deck {
+    display: flex;
+    /*valeurs: haut droite [bas= haut] gauche [droite= gauche]*/
+    padding: 0 20px;
+
+
+}
+
+/*--Cartes--*/
+.card {
+    background-color: #f5e9e9;
+    /*Bordures*/
+    border: 2px solid rgb(0, 0, 0);
+    /*coins arrondis*/
+    border-radius: 2px;
+    /* Changement de son statut de positionnement */
+    position: relative;
+
+}
+
+.card.flipped {
+    /*applique une trandformation visuelle qui n'affecete pas les éléments alentours*/
+    transform: rotateY(.5turn);
+}
+
+/*[VERSION ALTERNATIVE]  Tous les éléments dont l'attribut "class" commence par "card-" [class^="card-"]{} */
+/* Tous les <div> enfant directs de <element class="card">*/
+.card>div {
+    /*hauteur fixe*/
+    height: 233px;
+    /*largeur fixe*/
+    width: 150px;
+
+}
+
+.card-back {
+    background-color: blue;
+    opacity: .2;
+    position: relative;
+    /*ordre du calque de positionnement 1=derrière, plus = devant*/
+    z-index: 2;
+}
+
+.card-img {
+    background-color: red;
+    /*espace entre bord gauche et l'élement et celui de son element de réference*/
+    left: 0;
+    /* Changement de son statut de positionnement */
+    position: absolute;
+    /*espace entre bord gauche et l'élement et celui de son element de réference*/
+    top: 0;
+    transform: rotateY(.5turn);
+    z-index: 1;
+}
+
+.card.flipped .card-img {
+    z-index: 3;
+}
