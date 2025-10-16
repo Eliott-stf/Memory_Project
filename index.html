@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Police google-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Modak&display=swap">
     <link rel="stylesheet" href="style.css">
     <title>Memory</title>
 </head>
+
 <body>
-    <h1>Memory Game</h1>
-    <p>Jeu de memory</p>
+    <header>
+        <h1>Memory Game</h1>
+        <!--div.scores>(div*2)-->
+        <div class="scores">
+            <span>Hi-Score :</span>
+            <span id="hi-score">00</span>
+            <button type="button" id="btn-reset-score">🗑️</button>
+        </div>
+
+        <div id="current-score">00</div>
+    </header>
+
+    <main>
+        <div id="deck">
+            <!-- div{CARD $}*5-->
+            <div>CARD 1</div>
+            <div>CARD 2</div>
+            <div>CARD 3</div>
+            <div>CARD 4</div>
+            <div>CARD 5</div>
+        </div>
+    </main>
+
     <script src="script.js"></script>
 </body>
+
 </html>

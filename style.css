@@ -1,4 +1,72 @@
-body{
-    color: rebeccapurple;
-    background-color: black;
+/*Toutes les balises HTML*/
+* {
+
+    /*applique 0 de taille a la bordure autour*/
+    border: 0;
+    /*Mode de dimensionnement sur la boite de bordure*/
+    box-sizing: border-box;
+    /*marge extérieure de la bordure*/
+    margin: 0;
+    /*bordure superposée qui apparait en "focus"*/
+    outline: 0;
+    /*marge intérieure de la bordure*/
+    padding: 0;
+    /*Pour le grass*/
+    font-weight: bold;
+}
+
+/*Tout les balises button*/
+button {
+    /*Couleur de fond(zone du contenu + padding)*/
+    background-color: transparent;
+}
+
+header {
+    /* Gere la disposition des "enfents-flex" perpendiculairement au "fil"*/
+    align-items: center;
+    /*Activer le systeme de flexbox sur <header> qui devient "parent-flex"*/
+    display: flex;
+    /*Gere l'orientation du fil */
+    flex-direction: column;
+    /*Gére la goutière (espace de séparation) entre les "enfants-flex"*/
+    gap: 5px;
+    padding: 20px;
+
+}
+
+/*Tout les éléments qui sont directement dans score*/
+.scores>* {
+    /*Gere l'alignement vertical d'un element inline par rapport au texte aux inlines voisins*/
+    vertical-align: middle;
+
+
+}
+
+h1 {
+    /*Taille du texte*/
+    font-size: 65px;
+}
+
+
+body {
+    /*Couleur du texte*/
+    color: rgb(226, 223, 216);
+    /*Couleur de fond(zone du contenu + padding)*/
+    background-color: #4c8991;
+    /*Police d'écriture*/
+    font-family: "Modak", system-ui;
+    /*Pour mettre une bordure au texte*/
+    -webkit-text-stroke: 1px black;
+    /*Taille du texte*/
+    font-size: 40px;
+
+}
+
+/*LE <element id="current-score">*/
+#current-score {
+    color: #124242;
+    /*On peut utiliser 'em' au lieu de 'px' qui est un multiplicateur de la derniere taille en pixel donnée au texte
+    1em = 1 cadratin 
+    */
+    font-size: 45px;
 }
