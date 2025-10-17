@@ -1,3 +1,10 @@
+:root {
+    --img-height: 233px;
+    --img-width: 150px;
+    --img-scale: .5;
+    --cards-per-row: 3;
+}
+
 /*Toutes les balises HTML*/
 * {
 
@@ -32,6 +39,11 @@ header {
     gap: 5px;
     padding: 20px;
 
+}
+
+main {
+    /*valeurs: haut droite [bas= haut] gauche [droite= gauche]*/
+    padding: 0 20px;
 }
 
 /*Tout les éléments qui sont directement dans score*/
@@ -73,8 +85,18 @@ body {
 
 #deck {
     display: flex;
-    /*valeurs: haut droite [bas= haut] gauche [droite= gauche]*/
-    padding: 0 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: calc((20px * (var(--cards-per-row) - 1))
+            /*Nombre gaps */
+            + (2px * 2 * var(--cards-per-row))
+            /*total des bordures */
+            + var(--img-width)* var(--img-scale) * var(--cards-per-row)
+            /*total des images */
+        );
+    margin-left: auto;
+    margin-right: auto;
+
 
 
 }
@@ -100,22 +122,22 @@ body {
 /* Tous les <div> enfant directs de <element class="card">*/
 .card>div {
     /*hauteur fixe*/
-    height: 233px;
+    height: calc(var(--img-height)* var(--img-scale));
     /*largeur fixe*/
-    width: 150px;
+    width: calc(var(--img-width)* var(--img-scale));
+    background-size: calc(var(--img-width) * var(--img-scale)) calc(var(--img-height)* var(--img-scale));
 
 }
 
 .card-back {
-    background-color: blue;
-    opacity: .2;
+    background: #09ff00 url('img/back.png')center center no-repeat;
     position: relative;
     /*ordre du calque de positionnement 1=derrière, plus = devant*/
     z-index: 2;
 }
 
 .card-img {
-    background-color: red;
+    background: #09ff00 center center no-repeat;
     /*espace entre bord gauche et l'élement et celui de son element de réference*/
     left: 0;
     /* Changement de son statut de positionnement */
@@ -128,4 +150,23 @@ body {
 
 .card.flipped .card-img {
     z-index: 3;
+}
+
+
+/* -- Responsive -- */
+/* - Ecrans à partir de 992px de large (desktop) - */
+@media (min-width: 992px) {
+    :root {
+        --img-scale: .9;
+        --cards-per-row: 6;
+    }
+}
+
+
+/* - Ecrans à partir de 1400px de large (desktopxxl) - */
+@media (min-width: 1400px) {
+    :root {
+        --img-scale: 1;
+        --cards-per-row: 8;
+    }
 }
