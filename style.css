@@ -96,6 +96,11 @@ body {
         );
     margin-left: auto;
     margin-right: auto;
+    /*Perspective des transformations*/
+    /*Distance en pixels entre le point d'origine (point de fuite) et l'oeil de l'observateur supposé*/
+    perspective: 1000px;
+    /*Position du point de fuite par rapport a deck*/
+    perspective-origin: 50% 25%;
 
 
 
@@ -110,6 +115,7 @@ body {
     border-radius: 2px;
     /* Changement de son statut de positionnement */
     position: relative;
+    transition: transform 200ms ease-in;
 
 }
 
@@ -145,6 +151,7 @@ body {
     /*espace entre bord gauche et l'élement et celui de son element de réference*/
     top: 0;
     transform: rotateY(.5turn);
+    transition: z-index .2s ease-in;
     z-index: 1;
 }
 
@@ -163,8 +170,8 @@ body {
 }
 
 
-/* - Ecrans à partir de 1400px de large (desktopxxl) - */
-@media (min-width: 1400px) {
+/* - Ecrans à partir de 1440px de large (desktopxxl) - */
+@media (min-width: 1440px) {
     :root {
         --img-scale: 1;
         --cards-per-row: 8;
