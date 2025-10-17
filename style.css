@@ -41,6 +41,20 @@ header {
 
 }
 
+/* Boutons */
+.btn {
+    background-color: #124242;
+    border: 2px solid rgb(255, 255, 255, 10);
+    border-radius: 6px;
+    padding: 7px 10px 10px;
+}
+
+/*Lorsqu'on maintient le doigt (ou le clic) sur le bouton */
+.btn:active {
+    background-color: #1242426c;
+    border-color: rgb(18, 66, 66, 15);
+}
+
 main {
     /*valeurs: haut droite [bas= haut] gauche [droite= gauche]*/
     padding: 0 20px;
@@ -167,6 +181,20 @@ body {
         --img-scale: .9;
         --cards-per-row: 6;
     }
+
+    .card {
+        cursor: pointer;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #1242426c;
+        border-color: rgb(18, 66, 66, 15);
+    }
+
 }
 
 
