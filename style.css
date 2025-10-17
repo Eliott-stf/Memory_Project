@@ -28,7 +28,8 @@ button {
     background-color: transparent;
 }
 
-header {
+header,
+.modal {
     /* Gere la disposition des "enfents-flex" perpendiculairement au "fil"*/
     align-items: center;
     /*Activer le systeme de flexbox sur <header> qui devient "parent-flex"*/
@@ -68,9 +69,20 @@ main {
 
 }
 
-h1 {
+.hidden{
+    /*annule l'affichage, !important empeche qu'on puisse reprendre la priorité dessus*/
+    display: none!important;
+}
+
+
+
+
+/*Tout les h1 et les <element class="h1">*/
+h1,
+.h1 {
     /*Taille du texte*/
     font-size: 65px;
+    
 }
 
 
@@ -88,7 +100,8 @@ body {
 
 }
 
-/*LE <element id="current-score">*/
+/*LE <element id="current-score"> et LE <element id="final-score"> */
+#final-score,  
 #current-score {
     color: #124242;
     /*On peut utiliser 'em' au lieu de 'px' qui est un multiplicateur de la derniere taille en pixel donnée au texte
@@ -173,6 +186,28 @@ body {
     z-index: 3;
 }
 
+/* -- Modale de victoire --*/
+.modal-overlay {
+    /*Positionne le bloc de la meme maniere qu'absolute, mais sa réference est la fenetre d'affichage*/
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    /*vh= viewport height = 100% de la hauteur du viewport */
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.555);
+}
+
+.modal {
+    background-color: rgb(5, 35, 43);
+    width: 20% ;
+    border-radius: 50px;
+
+
+}
 
 /* -- Responsive -- */
 /* - Ecrans à partir de 992px de large (desktop) - */
