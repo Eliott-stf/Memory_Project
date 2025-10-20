@@ -19,11 +19,11 @@
         <!--div.scores>(div*2)-->
         <div class="scores">
             <span>Hi-Score :</span>
-            <span id="hi-score">00</span>
+            <span id="hi-score">Aucun</span>
             <button type="button" id="btn-reset-score" class="btn">🗑️</button>
         </div>
 
-        <div id="current-score">00</div>
+        <div id="current-score">0</div>
     </header>
 
     <main>
@@ -151,10 +151,10 @@
         </div>
 
         <!-- Fenetre modale de la victoire-->
-        <div class="modal-overlay hidden">
+        <div id="modal-win" class="modal-overlay hidden">
             <div class="modal">
                 <div class="h1">Victoire !</div>
-                <div id="final-score">00</div>
+                <div id="final-score"></div>
                 <button type="button" id="btn-play-again" class="btn">Rejouer</button>
             </div>
         </div>
