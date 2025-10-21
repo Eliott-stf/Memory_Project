@@ -20,6 +20,20 @@ function handlerDomContentLoaded() {
 
     //Les variables de fonctionnement du jeu
     let arrNumCards = [];
+    //Les réglages du jeu
+    const gameConfig = {
+        distinctCards: 12, //nombre d'images différentes du jeu
+        timerDelay: 1000,
+    };
+
+    //Objet litteral qui contient les infos de l'état actuel de la partie
+    const gameState = {
+        arrFound: [],   //Liste des numéros déja découverts
+        arrFlipped: [], //Liste temporaire des cartes retournées pendant une tentative
+        canPlay: true, //Flag qui empeche le clic sur la carte de fonctionner
+        tries: 0, //Nombre de tentative de la partie en cours
+        timer: null //Timer de retournemnet des cartes non matchées 
+    };
 
     //Etapes de démarage 
     //TODO: Plus tard, récupération et affichage du hi-score
@@ -73,7 +87,7 @@ function handlerDomContentLoaded() {
 
     //Géneration du DOM d'une carte
     function getCardDom(numCard) {
-        /*<div class="card">
+        /*<div class="card" data-num="1">
                 <!--div.card-back+div.card-img -->
                 <div class="card-back"></div>
                 <div class="card-img" style="background-image:url('img/1.png')"></div>
@@ -81,6 +95,7 @@ function handlerDomContentLoaded() {
         */
         const elCard = document.createElement('div');
         elCard.classList.add('card');
+        elCard.dataset.numCard = numCard;
 
         //On fabrique l'intérieur de elCard
         let cardInnerHTML = '<div class="card-back"></div>';
@@ -88,33 +103,35 @@ function handlerDomContentLoaded() {
         elCard.innerHTML = cardInnerHTML;
 
         //TODO: Event listener pour le clic de la carte TEMPORAIRE
-        elCard.addEventListener('click', function () {
-            elCard.classList.toggle('flipped');
-        })
-
-
-
+        elCard.addEventListener("click", handlerCardClick)
 
         return elCard;
-
-
     }
 
 
     //Creer une fonction pour réinitialiser l'interface graphique
     function initGame() {
         console.log('Initialisation du jeu');
+
         //Remise a zero du current score 
-        elCurrentScore.textContent = 0;
+        gameState.tries = 0;
+
+        elCurrentScore.textContent = gameState.tries;
 
         //Remise a zero du final score
         elFinalScore.textContent = '';
+
+        //Remise a zero de la liste des paires trouvées
+        gameState.arrFound = [];
+
+        //On vide la liste des cartes
+        arrNumCards = [];
 
         //vidange du deck
         elDeck.innerHTML = '';
 
         //Generation aléatoire d'une liste de nombre en double (numéro des cartes par paire)
-        for (let i = 1; i <= 12; i++) {
+        for (let i = 1; i <= gameConfig.distinctCards; i++) {
             //On ajoute 2 fois le i a la fin du tableau de nombres
             arrNumCards.push(i, i);
         }
@@ -138,9 +155,9 @@ function handlerDomContentLoaded() {
         //    console.log(i);  
         //}
         //Boucle pour parcourir un tableau dans son intégralité => for (.. of ..)
-        for(let numCard of arrNumCards){
+        for (let numCard of arrNumCards) {
             const elCard = getCardDom(numCard);
-            elDeck.append(elCard);  
+            elDeck.append(elCard);
         }
         //Boucle pour parcourir un tableau dans son intégralité => Array.forEach()
         //arrNumCards.forEach(numCard => {console.log(numCard);})
@@ -148,7 +165,80 @@ function handlerDomContentLoaded() {
 
     }
 
+    //Gestionnaire de clic d'une carte
+    function handlerCardClick() {
+        //Technique de "early return":
+        //On sort de la fonction si on n'a plus besoin d'exécuter la suite du code 
+        //On limite l'emboitement de plusieur niveau d'indentation typiquement géneré par des blocs if ... else
+        //si on a pas le droit de retourner les cartes OU la carte cliquée est deja retounrée, on sort
+        if (!gameState.canPlay || this.classList.contains('flipped')) return; //Accolades optionnelles lorsque l'on n'a qu'une seule instruction
 
+        //on réinitialise le timer
+        clearTimeout(gameState.timer);
+
+        //On retourne la carte cliquée
+        this.classList.add('flipped');
+
+        //Si on n'a pas déja retourné une carte (c'est arrFlipped est vide)
+        if (!gameState.arrFlipped.length > 0) {
+            //On ajoute l'élément de la carte dans arrFlipped et on sort
+            gameState.arrFlipped.push(this);
+            return;
+        }
+        //Sinon on continue
+        //on incrémente le score
+        gameState.tries++;
+        //On met a jour elCurrentScore
+        elCurrentScore.textContent = gameState.tries;
+
+        //On récupère les numéros des 2 cartes 
+        const numCard1 = gameState.arrFlipped[0].dataset.numCard
+        const numCard2 = this.dataset.numCard;
+
+        //Si les 2 cartes sont identiques 
+        if (numCard1 === numCard2) {
+            //On ajoute le numéro de la carte dans la liste des cartes trouvées 
+            gameState.arrFound.push(numCard1)
+            //On vide arrFlipped pour la prochaine tentative
+            gameState.arrFlipped = [];
+
+            //Si on a pas trouvé toutes les paires
+            if (gameState.arrFound.length < gameConfig.distinctCards) return;
+
+            //sinon GAGNE
+            //On met a jour le score final
+            elFinalScore.textContent = gameState.tries;
+            //on affiche la modale
+            elModalWin.classList.remove('hidden');
+
+            return;
+        }
+
+
+        //sinon on continue
+        //On ajoute la carte actuelle à la liste des carte retournées 
+        gameState.arrFlipped.push(this);
+
+        //On désactive la possibilité de jouer d'autres cartes
+        gameState.canPlay = false;
+
+        // On lance un timer qui remet les cartes en place au bout d'un temps défini
+        //Dans une fonction flèche, la convention dit que un argument seul, qui est a coup sur "indefined" doit etre nommé "_"
+        gameState.timer = setTimeout(_ => { 
+            //Pour chaque carte retourné pour cette tentative, on retire la classe
+            for(let elCard of gameState.arrFlipped){
+                elCard.classList.remove('flipped');
+            }
+
+            //On réactive la possibilité de retourner d'autres cartes
+            gameState.canPlay = true;
+
+            //On réinitialise la liste des cartes retournées pour une tentative
+            gameState.arrFlipped = [];
+
+        }, gameConfig.timerDelay);
+
+    }
 
     //Initialisation du jeu
     initGame();
