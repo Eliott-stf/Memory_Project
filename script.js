@@ -84,7 +84,7 @@ function handlerDomContentLoaded() {
 
         //On fabrique l'intérieur de elCard
         let cardInnerHTML = '<div class="card-back"></div>';
-        cardInnerHTML += ` <div class="card-img" style="background-image:url('img/${numCard}.png')"></div>`;
+        cardInnerHTML += ` <div class="card-img" style="background-image:url('img/${numCard}.png')"></div> `;
         elCard.innerHTML = cardInnerHTML;
 
         //TODO: Event listener pour le clic de la carte TEMPORAIRE
@@ -129,8 +129,21 @@ function handlerDomContentLoaded() {
         console.log(arrNumCards);
 
         //On parcours la liste pour fabriquer les cartes et les afficher 
-        let uneCarte = getCardDom(5);
-        elDeck.append(uneCarte);
+        //Boucle pour parcourir un tableau dans son intégralité => for(... ; .... ; ...)
+        //for (let i = 0; i < arrNumCards.length; i++) {
+        //    console.log(arrNumCards[i] );
+        //}
+        //Boucle pour parcourir un tableau dans son intégralité => for(.. in ..)
+        //for(let i in arrNumCards){
+        //    console.log(i);  
+        //}
+        //Boucle pour parcourir un tableau dans son intégralité => for (.. of ..)
+        for(let numCard of arrNumCards){
+            const elCard = getCardDom(numCard);
+            elDeck.append(elCard);  
+        }
+        //Boucle pour parcourir un tableau dans son intégralité => Array.forEach()
+        //arrNumCards.forEach(numCard => {console.log(numCard);})
 
 
     }
