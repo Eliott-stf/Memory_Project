@@ -32,17 +32,32 @@ function handlerDomContentLoaded() {
         arrFlipped: [], //Liste temporaire des cartes retournées pendant une tentative
         canPlay: true, //Flag qui empeche le clic sur la carte de fonctionner
         tries: 0, //Nombre de tentative de la partie en cours
+        hiScore: 0, //Le High-Score actuel : 0 signifira qu'il n'y en a pas encore
         timer: null //Timer de retournemnet des cartes non matchées 
     };
 
     //Etapes de démarage 
-    //TODO: Plus tard, récupération et affichage du hi-score
+    //Récupération et affichage du hi-score
+    const storeHiScore = localStorage.getItem('memory-game-hiscore');
+    //s'il n'en existe pas, on le creer dans le stockage du navigateur 
+    if (storeHiScore === null) {
+        localStorage.setItem('memory-game-hiscore', gameState.hiScore);
+    }
+    //Sinon on met a jour le gameState
+    else {
+        gameState.hiScore = parseInt(storeHiScore, 10);
+    }
+
+    //afficher le hi-score
+    elHiScore.textContent = gameState.hiScore > 0 ? gameState.hiScore : 'Aucun'
+
 
     //Implementer les clicks sur les boutons fixes : elBtnResetScore, elBtnPlayAgain
 
     //Ecouteur de click sur elBtnResetScore
     elBtnResetScore.addEventListener("click", function () {
-        //TODO: Effacer le hi-score de la "mémoire"
+        //Effacer le hi-score de la "mémoire"
+        localStorage.removeItem('memory-game-hiscore');
 
         //On réinitialise l'affichage
         elHiScore.textContent = 'Aucun';
@@ -130,6 +145,9 @@ function handlerDomContentLoaded() {
         //vidange du deck
         elDeck.innerHTML = '';
 
+        //afficher le hi-score
+        elHiScore.textContent = gameState.hiScore > 0 ? gameState.hiScore : 'Aucun'
+
         //Generation aléatoire d'une liste de nombre en double (numéro des cartes par paire)
         for (let i = 1; i <= gameConfig.distinctCards; i++) {
             //On ajoute 2 fois le i a la fin du tableau de nombres
@@ -211,6 +229,18 @@ function handlerDomContentLoaded() {
             //on affiche la modale
             elModalWin.classList.remove('hidden');
 
+            //Gestion du high score
+            //Si aucun hi-score OU que le nombre de tentatives est meilleur que hi-score
+            //=> enregistrement du nouveau hi-score
+            //mettre le plus probable en 1er pour de l'économie de performance (ici il faut inversé par exemple)
+            //On peut optimiser de la meme manière pour ET, il va pas lire si le premier est 0 (faux)
+            if (gameState.hiScore <= 0 || gameState.tries < gameState.hiScore) {
+                //On met a jour le gameState
+                gameState.hiScore = gameState.tries;
+                //On enregistre le nouveau score dans localStorage
+                localStorage.setItem('memory-game-hiscore', gameState.hiScore);
+            }
+
             return;
         }
 
@@ -224,9 +254,9 @@ function handlerDomContentLoaded() {
 
         // On lance un timer qui remet les cartes en place au bout d'un temps défini
         //Dans une fonction flèche, la convention dit que un argument seul, qui est a coup sur "indefined" doit etre nommé "_"
-        gameState.timer = setTimeout(_ => { 
+        gameState.timer = setTimeout(_ => {
             //Pour chaque carte retourné pour cette tentative, on retire la classe
-            for(let elCard of gameState.arrFlipped){
+            for (let elCard of gameState.arrFlipped) {
                 elCard.classList.remove('flipped');
             }
 
@@ -239,6 +269,7 @@ function handlerDomContentLoaded() {
         }, gameConfig.timerDelay);
 
     }
+
 
     //Initialisation du jeu
     initGame();
