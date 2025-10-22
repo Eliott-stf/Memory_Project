@@ -18,14 +18,13 @@ function handlerDomContentLoaded() {
         baba = 10;
     */
 
-    //Les variables de fonctionnement du jeu
-    let arrNumCards = [];
-    //Les réglages du jeu
-    const gameConfig = {
-        distinctCards: 12, //nombre d'images différentes du jeu
-        timerDelay: 1000,
-    };
+   
+   //Les variables de fonctionnement du jeu
+   let arrNumCards = [];
 
+   //Reglage du jeu sur le config.js
+   
+   
     //Objet litteral qui contient les infos de l'état actuel de la partie
     const gameState = {
         arrFound: [],   //Liste des numéros déja découverts
