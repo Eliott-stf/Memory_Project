@@ -15,7 +15,10 @@
 
 <body>
     <header>
-        <h1>Memory Game</h1>
+          <!--Indicateur du theme actif-->
+        <div class="theme-indicator">Thème <span id="current-theme">Par défaut</span></div>
+        
+        <h1><span id="mode-icon">☁️</span> Memory Game</h1>
         <!--div.scores>(div*2)-->
         <div class="scores">
             <span>Hi-Score :</span>
@@ -29,7 +32,8 @@
     <main>
         <div id="deck">
         </div>
-        
+
+      
         <!-- Fenetre modale de la victoire-->
         <div id="modal-win" class="modal-overlay hidden">
             <div class="modal">
@@ -38,7 +42,39 @@
                 <button type="button" id="btn-play-again" class="btn">Rejouer</button>
             </div>
         </div>
+
+
+        <!--Bouton des réglages-->
+        <button type="button" id="btn-settings" class="btn">⚙️</button>
+        <!-- Fenetre modale des settings-->
+        <div id="modal-settings" class="modal-overlay hidden">
+            <div class="modal">
+                <div class="h1">Réglages</div>
+
+                <!--div>(label+(select#mode>option*3))-->
+                <div>
+                    <label for="select-mode">Difficulté</label>
+                    <select id="select-mode">
+                        <option value="6">🐟 Dory</option>
+                        <option value="9" selected>🤓 Normal</option> <!--selectionne par défaut le 'mode normal'-->
+                        <option value="12">🤯 Hard</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="select-theme">Thème</label>
+                    <select id="select-theme">
+                        <option value="default"selected>Par défaut</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="button" id="btn-settings-cancel" class="btn">Annuler</button>
+                    <button type="button" id="btn-settings-ok" class="btn">Ok</button>
+                </div>
+            </div>
+        </div>
     </main>
+
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>

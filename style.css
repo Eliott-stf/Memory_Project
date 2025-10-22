@@ -20,6 +20,7 @@
     padding: 0;
     /*Pour le grass*/
     font-weight: bold;
+    
 }
 
 /*Tout les balises button*/
@@ -41,6 +42,12 @@ header,
     padding: 20px;
 
 }
+
+/*--Indicateur de thème actif --*/
+.theme-indicator{
+    font-size: .5em;
+}
+
 
 /* Boutons */
 .btn {
@@ -81,7 +88,7 @@ main {
 h1,
 .h1 {
     /*Taille du texte*/
-    font-size: 65px;
+    font-size: 58px;
     
 }
 
@@ -107,7 +114,7 @@ body {
     /*On peut utiliser 'em' au lieu de 'px' qui est un multiplicateur de la derniere taille en pixel donnée au texte
     1em = 1 cadratin 
     */
-    font-size: 45px;
+    font-size: 35px;
 }
 
 #deck {
@@ -186,7 +193,15 @@ body {
     z-index: 3;
 }
 
-/* -- Modale de victoire --*/
+
+/* -- Modales --*/
+/* Bouton reglages */
+#btn-settings {
+    /* Espace entre les bords bas du bouton et le bord bas de l'élément de réference */
+    bottom: 20px;
+    position: fixed;
+    right: 20px;
+}
 .modal-overlay {
     /*Positionne le bloc de la meme maniere qu'absolute, mais sa réference est la fenetre d'affichage*/
     position: fixed;
