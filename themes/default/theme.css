@@ -1,0 +1,13 @@
+:root{
+    --color-text-main: #e2dfd8;
+    --bg-main: #4c8991;
+    --btn-bg:#124242;
+    --btn-active-bg:#1242426c;
+    --btn-border:rgb(255, 255, 255, 10);
+    --btn-active-border: rgb(18, 66, 66, 15);
+    --color-score: #124242;
+    --card-border: rgb(0, 0, 0);
+    --card-bg-color:  #09ff00;
+    --modal-overlay-bg:rgba(128, 128, 128, 0.555);
+    --modal-bg-color:rgb(5, 35, 43);
+}

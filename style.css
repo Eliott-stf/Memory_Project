@@ -49,18 +49,19 @@ header,
 }
 
 
+
 /* Boutons */
 .btn {
-    background-color: #124242;
-    border: 2px solid rgb(255, 255, 255, 10);
+    background-color:var(--btn-bg);
+    border: 2px solid var(--btn-border);
     border-radius: 6px;
     padding: 7px 10px 10px;
 }
 
 /*Lorsqu'on maintient le doigt (ou le clic) sur le bouton */
 .btn:active {
-    background-color: #1242426c;
-    border-color: rgb(18, 66, 66, 15);
+    background-color: var(--btn-active-bg);
+    border-color: var(--btn-active-border);
 }
 
 main {
@@ -95,9 +96,9 @@ h1,
 
 body {
     /*Couleur du texte*/
-    color: rgb(226, 223, 216);
+    color: var(--color-text-main);
     /*Couleur de fond(zone du contenu + padding)*/
-    background-color: #4c8991;
+    background-color:var(--bg-main);
     /*Police d'écriture*/
     font-family: "Modak", system-ui;
     /*Pour mettre une bordure au texte*/
@@ -110,7 +111,7 @@ body {
 /*LE <element id="current-score"> et LE <element id="final-score"> */
 #final-score,  
 #current-score {
-    color: #124242;
+    color: var( --color-score);
     /*On peut utiliser 'em' au lieu de 'px' qui est un multiplicateur de la derniere taille en pixel donnée au texte
     1em = 1 cadratin 
     */
@@ -144,7 +145,7 @@ body {
 .card {
     background-color: #f5e9e9;
     /*Bordures*/
-    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid var(--card-border);
     /*coins arrondis*/
     border-radius: 2px;
     /* Changement de son statut de positionnement */
@@ -170,14 +171,14 @@ body {
 }
 
 .card-back {
-    background: #09ff00 url('img/back.png')center center no-repeat;
+    background: var(--card-bg-color) center no-repeat;
     position: relative;
     /*ordre du calque de positionnement 1=derrière, plus = devant*/
     z-index: 2;
 }
 
 .card-img {
-    background: #09ff00 center center no-repeat;
+    background: var(--card-bg-color) center center no-repeat;
     /*espace entre bord gauche et l'élement et celui de son element de réference*/
     left: 0;
     /* Changement de son statut de positionnement */
@@ -213,16 +214,18 @@ body {
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: rgba(128, 128, 128, 0.555);
+    background-color: var(--modal-overlay-bg);
 }
 
 .modal {
-    background-color: rgb(5, 35, 43);
+    background-color: var(--modal-bg-color);
     width: 20% ;
     border-radius: 50px;
 
 
 }
+
+
 
 /* -- Responsive -- */
 /* - Ecrans à partir de 992px de large (desktop) - */
@@ -241,8 +244,8 @@ body {
     }
 
     .btn:hover {
-        background-color: #1242426c;
-        border-color: rgb(18, 66, 66, 15);
+        background-color: var(--btn-active-bg);
+        border-color: var(--btn-active-border);
     }
 
 }

@@ -9,15 +9,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Modak&display=swap">
+
+    <link rel="stylesheet" href="themes/default/theme.css">
     <link rel="stylesheet" href="style.css">
     <title>Memory</title>
 </head>
 
 <body>
     <header>
-          <!--Indicateur du theme actif-->
+        <!--Indicateur du theme actif-->
         <div class="theme-indicator">Thème <span id="current-theme">Par défaut</span></div>
-        
+
         <h1><span id="mode-icon">☁️</span> Memory Game</h1>
         <!--div.scores>(div*2)-->
         <div class="scores">
@@ -33,7 +35,7 @@
         <div id="deck">
         </div>
 
-      
+
         <!-- Fenetre modale de la victoire-->
         <div id="modal-win" class="modal-overlay hidden">
             <div class="modal">
@@ -63,7 +65,7 @@
                 <div>
                     <label for="select-theme">Thème</label>
                     <select id="select-theme">
-                        <option value="default"selected>Par défaut</option>
+                        <option value="default" selected>Par défaut</option>
                     </select>
                 </div>
 

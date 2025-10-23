@@ -9,6 +9,12 @@ function handlerDomContentLoaded() {
     const elFinalScore = document.getElementById('final-score');
     const elModalWin = document.getElementById('modal-win');
     const elBtnPlayAgain = document.getElementById('btn-play-again');
+    const elBtnSettings = document.getElementById('btn-settings');
+    const elBtnSettingsCancel = document.getElementById('btn-settings-cancel');
+    const elBtnSettingsOk = document.getElementById('btn-settings-ok');
+    const elModalSettings = document.getElementById('modal-settings')
+    
+
     /* On peut declarer plusieurs constantes avec le meme "const"
     Ex: const TOTO = 5, truc = 10, baba =10;
     On peut l'ecrire de manière plus jolie :
@@ -18,13 +24,13 @@ function handlerDomContentLoaded() {
         baba = 10;
     */
 
-   
-   //Les variables de fonctionnement du jeu
-   let arrNumCards = [];
 
-   //Reglage du jeu sur le config.js
-   
-   
+    //Les variables de fonctionnement du jeu
+    let arrNumCards = [];
+
+    //Reglage du jeu sur le config.js
+
+
     //Objet litteral qui contient les infos de l'état actuel de la partie
     const gameState = {
         arrFound: [],   //Liste des numéros déja découverts
@@ -32,7 +38,7 @@ function handlerDomContentLoaded() {
         canPlay: true, //Flag qui empeche le clic sur la carte de fonctionner
         tries: 0, //Nombre de tentative de la partie en cours
         hiScore: 0, //Le High-Score actuel : 0 signifira qu'il n'y en a pas encore
-        timer: null //Timer de retournemnet des cartes non matchées 
+        timer: null, //Timer de retournemnet des cartes non matchées 
     };
 
     //Etapes de démarage 
@@ -51,7 +57,29 @@ function handlerDomContentLoaded() {
     elHiScore.textContent = gameState.hiScore > 0 ? gameState.hiScore : 'Aucun'
 
 
-    //Implementer les clicks sur les boutons fixes : elBtnResetScore, elBtnPlayAgain
+    //Implementer les clicks sur les boutons fixes : elBtnResetScore, elBtnPlayAgain, .....
+
+    //Ecouteur de click sur elBtnSettings
+    elBtnSettings.addEventListener('click', function () {
+        //On retire la classe hidden
+        elModalSettings.classList.remove('hidden');
+    })
+
+
+    //Ecouteur de click sur elBtnSettingsCancel
+    elBtnSettingsCancel.addEventListener('click', function () {
+        //On retire la classe hidden
+        elModalSettings.classList.add('hidden');
+    })
+
+
+    //Ecouteur de click sur elBtnSettingsOk
+    elBtnSettingsOk.addEventListener('click', function () {
+        //Réinitialise en fonction du choix sur la modale
+        initGame();
+        //On retire la classe hidden
+        elModalSettings.classList.add('hidden');
+    })
 
     //Ecouteur de click sur elBtnResetScore
     elBtnResetScore.addEventListener("click", function () {
@@ -99,6 +127,7 @@ function handlerDomContentLoaded() {
         let idRandom;
     }
 
+ 
     //Géneration du DOM d'une carte
     function getCardDom(numCard) {
         /*<div class="card" data-num="1">
@@ -112,11 +141,11 @@ function handlerDomContentLoaded() {
         elCard.dataset.numCard = numCard;
 
         //On fabrique l'intérieur de elCard
-        let cardInnerHTML = '<div class="card-back"></div>';
-        cardInnerHTML += ` <div class="card-img" style="background-image:url('img/${numCard}.png')"></div> `;
+        let cardInnerHTML = ` <div class="card-back" style="background-image:url('./themes/default/img/back.png')"></div> `;
+        cardInnerHTML += ` <div class="card-img" style="background-image:url('./themes/default/img/${numCard}.png')"></div> `;
         elCard.innerHTML = cardInnerHTML;
 
-        //TODO: Event listener pour le clic de la carte TEMPORAIRE
+        // Event listener pour le clic de la carte 
         elCard.addEventListener("click", handlerCardClick)
 
         return elCard;
@@ -148,7 +177,7 @@ function handlerDomContentLoaded() {
         elHiScore.textContent = gameState.hiScore > 0 ? gameState.hiScore : 'Aucun'
 
         //Generation aléatoire d'une liste de nombre en double (numéro des cartes par paire)
-        for (let i = 1; i <= gameConfig.distinctCards; i++) {
+        for (let i = 1; i <= selectMode.value; i++) {
             //On ajoute 2 fois le i a la fin du tableau de nombres
             arrNumCards.push(i, i);
         }
@@ -220,7 +249,7 @@ function handlerDomContentLoaded() {
             gameState.arrFlipped = [];
 
             //Si on a pas trouvé toutes les paires
-            if (gameState.arrFound.length < gameConfig.distinctCards) return;
+            if (gameState.arrFound.length < selectMode.value) return;
 
             //sinon GAGNE
             //On met a jour le score final
